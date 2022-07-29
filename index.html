@@ -3,10 +3,512 @@
 
 <head>
     <title>House Affordability Calculator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <script src="https://unpkg.com/vue@3"></script>
 </head>
 
 <body>
-    test
+    <nav class="navbar has-background-info" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://bulma.io">
+                <h1 class="has-text-white">House Affordability Calculator</h1>
+            </a>
+
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+                data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+
+        <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start">
+
+            </div>
+
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <a class="Header-link " href="https://github.com/reZach/house-affordability-calculator">
+                        <svg height="32" aria-hidden="true" viewBox="0 0 16 16" version="1.1" width="32"
+                            data-view-component="true" class="octicon octicon-mark-github v-align-middle">
+                            <path fill-rule="evenodd"
+                                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+                            </path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div id="app">
+        <section class="section">
+            <div class="container">
+                <h1 class="title">
+                    House Affordability Calculator
+                </h1>
+                <p class="subtitle">
+                    Enter in your details below and find out what house you can afford. All calculations are done
+                    client-side.
+                </p>
+            </div>
+        </section>
+        <section class="hero is-primary is-small">
+            <div class="hero-body">
+                <p class="title">
+                    Income
+                </p>
+                <p class="subtitle">
+                    How much do you make at your job and what have you saved?
+                </p>
+            </div>
+        </section>
+        <section class="section">
+            <div class="container">
+                <div class="columns">
+                    <div class="column is-one-third">
+                        <label class="label">Gross salary (1 pay period)</label>
+                        <div class="field has-addons">
+                            <p class="control">
+                                <a class="button is-static">
+                                    $
+                                </a>
+                            </p>
+                            <p class="control">
+                                <input class="input" type="number" placeholder="The total amount you make before taxes">
+                            </p>
+                        </div>
+                    </div>
+                    <div class="column is-one-third">
+                        <label class="label">Net salary (1 pay period)</label>
+                        <div class="field has-addons">
+                            <p class="control">
+                                <a class="button is-static">
+                                    $
+                                </a>
+                            </p>
+                            <p class="control">
+                                <input class="input" type="number" placeholder="The total amount you make after taxes">
+                            </p>
+                        </div>
+                    </div>
+                    <div class="column is-one-third">
+                        <label class="label">Pay periods per year</label>
+                        <div class="field has-addons">
+                            <p class="control">
+                                <input class="input" type="number" placeholder="(26 if paid every 2 weeks)">
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section">
+            <div class="container">
+                <div class="columns">
+                    <div class="column is-one-third">
+                        <label class="label">Savings</label>
+                        <div class="field has-addons">
+                            <p class="control">
+                                <a class="button is-static">
+                                    $
+                                </a>
+                            </p>
+                            <p class="control">
+                                <input class="input" type="number" placeholder="Savings you have">
+                            </p>
+                        </div>
+                    </div>
+                    <div class="column is-one-third">
+                        <label class="label">Emergency savings (in months)</label>
+                        <div class="field has-addons">
+                            <p class="control">
+                                <input class="input" type="number"
+                                    placeholder="How many months you desire to have as reserve cash">
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="hero is-warning is-small">
+            <div class="hero-body">
+                <p class="title">
+                    Home Cost
+                </p>
+                <p class="subtitle">
+                    How much is it going to cost for your home?
+                </p>
+            </div>
+        </section>
+        <section class="section">
+            <div class="container">
+                <div class="columns">
+                    <div class="column is-one-third">
+                        <label class="label">Home price</label>
+                        <div class="field has-addons">
+                            <p class="control">
+                                <a class="button is-static">
+                                    $
+                                </a>
+                            </p>
+                            <p class="control">
+                                <input class="input" type="number" placeholder="The list price of the home">
+                            </p>
+                        </div>
+                    </div>
+                    <div class="column is-one-third">
+                        <label class="label">Down payment</label>
+                        <div class="field has-addons">
+                            <p class="control">
+                                <input class="input" type="number"
+                                    placeholder="The % of a down payment you are offering">
+                            </p>
+                            <p class="control">
+                                <a class="button is-static">
+                                    %
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="column is-one-third">
+                        <label class="label">Annual home insurance cost</label>
+                        <div class="field has-addons">
+                            <p class="control">
+                                <a class="button is-static">
+                                    $
+                                </a>
+                            </p>
+                            <p class="control">
+                                <input class="input" type="number" placeholder="Cost for home insurance for a year">
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section">
+            <div class="container">
+                <div class="columns">
+                    <div class="column is-one-third">
+                        <label class="label">Property tax</label>
+                        <div class="field has-addons">
+                            <p class="control">
+                                <input class="input" type="number" placeholder="The property tax % rate">
+                            </p>
+                            <p class="control">
+                                <a class="button is-static">
+                                    %
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="column is-one-third">
+                        <label class="label">HOA fee</label>
+                        <div class="field has-addons">
+                            <p class="control">
+                                <a class="button is-static">
+                                    $
+                                </a>
+                            </p>
+                            <p class="control">
+                                <input class="input" type="number"
+                                    placeholder="The monthly home owners association fee">
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="hero is-danger is-small">
+            <div class="hero-body">
+                <p class="title">
+                    Mortgage / Closing Costs
+                </p>
+                <p class="subtitle">
+                    Surprise costs you don't usually consider
+                </p>
+            </div>
+        </section>
+        <section class="section">
+            <div class="container">
+                <div class="columns">
+                    <div class="column is-one-third">
+                        <label class="label">Mortgage length (in years)</label>
+                        <div class="field has-addons">
+                            <p class="control">
+                                <input class="input" type="number"
+                                    placeholder="How many months you will have a mortgage">
+                            </p>
+                        </div>
+                    </div>
+                    <div class="column is-one-third">
+                        <label class="label">PMI insurance rate</label>
+                        <div class="field has-addons">
+                            <p class="control">
+                                <input class="input" type="number"
+                                    placeholder="PMI insurance % if you put less than 20% down payment">
+                            </p>
+                            <p class="control">
+                                <a class="button is-static">
+                                    %
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="column is-one-third">
+                        <label class="label">Interest rate</label>
+                        <div class="field has-addons">
+                            <p class="control">
+                                <input class="input" type="number" placeholder="The interest rate of the mortgage">
+                            </p>
+                            <p class="control">
+                                <a class="button is-static">
+                                    %
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section">
+            <div class="container">
+                <div class="columns">
+                    <div class="column is-one-third">
+                        <label class="label">Closing costs</label>
+                        <div class="field has-addons">
+                            <p class="control">
+                                <input class="input" type="number" value="5"
+                                    placeholder="The cost of closing as a % of the list price">
+                            </p>
+                            <p class="control">
+                                <a class="button is-static">
+                                    %
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="column is-one-third">
+                        <label class="label">Furnishing costs</label>
+                        <div class="field has-addons">
+                            <p class="control">
+                                <input class="input" type="number" value="10"
+                                    placeholder="The cost of furnishing the home as a % of the list price">
+                            </p>
+                            <p class="control">
+                                <a class="button is-static">
+                                    %
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="hero is-link is-small">
+            <div class="hero-body">
+                <p class="title">
+                    Your Budget
+                </p>
+                <p class="subtitle">
+                    What are your monthly expenses?
+                </p>
+            </div>
+        </section>
+        <section class="section">
+            <div class="container">
+                <div class="columns">
+                    <div class="column is-one-third">
+                        <label class="label">Savings</label>
+                        <div class="field has-addons">
+                            <p class="control">
+                                <a class="button is-static">
+                                    $
+                                </a>
+                            </p>
+                            <p class="control">
+                                <input class="input" type="number" placeholder="Monthly amount put into savings">
+                            </p>
+                        </div>
+                    </div>
+                    <div class="column is-one-third">
+                        <label class="label">Credit card</label>
+                        <div class="field has-addons">
+                            <p class="control">
+                                <a class="button is-static">
+                                    $
+                                </a>
+                            </p>
+                            <p class="control">
+                                <input class="input" type="number" placeholder="Monthly credit card bill">
+                            </p>
+                        </div>
+                    </div>
+                    <div class="column is-one-third">
+                        <label class="label">Groceries</label>
+                        <div class="field has-addons">
+                            <p class="control">
+                                <a class="button is-static">
+                                    $
+                                </a>
+                            </p>
+                            <p class="control">
+                                <input class="input" type="number" placeholder="Monthly food bill">
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section">
+            <div class="container">
+                <div class="columns">
+                    <div class="column is-one-third">
+                        <label class="label">Internet</label>
+                        <div class="field has-addons">
+                            <p class="control">
+                                <a class="button is-static">
+                                    $
+                                </a>
+                            </p>
+                            <p class="control">
+                                <input class="input" type="number" placeholder="Monthly internet bill">
+                            </p>
+                        </div>
+                    </div>
+                    <div class="column is-one-third">
+                        <label class="label">Utilities</label>
+                        <div class="field has-addons">
+                            <p class="control">
+                                <a class="button is-static">
+                                    $
+                                </a>
+                            </p>
+                            <p class="control">
+                                <input class="input" type="number" placeholder="Monthly utility bill">
+                            </p>
+                        </div>
+                    </div>
+                    <div class="column is-one-third">
+                        <label class="label">Phone</label>
+                        <div class="field has-addons">
+                            <p class="control">
+                                <a class="button is-static">
+                                    $
+                                </a>
+                            </p>
+                            <p class="control">
+                                <input class="input" type="number" placeholder="Monthly phone bill">
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section">
+            <div class="container">
+                <div class="columns">
+                    <div class="column is-one-third">
+                        <label class="label">House expenses</label>
+                        <div class="field has-addons">
+                            <p class="control">
+                                <a class="button is-static">
+                                    $
+                                </a>
+                            </p>
+                            <p class="control">
+                                <input class="input" type="number" placeholder="Monthly house expenses">
+                            </p>
+                        </div>
+                    </div>
+                    <div class="column is-one-third">
+                        <label class="label">Donations</label>
+                        <div class="field has-addons">
+                            <p class="control">
+                                <a class="button is-static">
+                                    $
+                                </a>
+                            </p>
+                            <p class="control">
+                                <input class="input" type="number" placeholder="Monthly donations">
+                            </p>
+                        </div>
+                    </div>
+                    <div class="column is-one-third">
+                        <label class="label">ETC</label>
+                        <div class="field has-addons">
+                            <p class="control">
+                                <a class="button is-static">
+                                    $
+                                </a>
+                            </p>
+                            <p class="control">
+                                <input class="input" type="number" placeholder="Any other monthly expenses">
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="hero is-info is-halfheight">
+            <div class="hero-body">
+                <div>
+                    <p class="title">
+                        Your Results
+                    </p>
+                    <p class="subtitle">
+                        Let's see what you can afford
+                    </p>
+                </div>
+            </div>
+        </section>
+        <section class="section">
+            <div class="container">
+                <div class="columns">
+                    <div class="column is-one-third">
+                        <h1 class="title is-1">Your income</h1>
+                        <div>
+                            You make <strong>2</strong> per year (gross)
+                        </div>
+                        <div>
+                            You make <strong>2</strong> per year (net)
+                        </div>
+                        <div>
+                            You make <strong>2</strong> per month (gross)
+                        </div>
+                        <div>
+                            You make <strong>2</strong> per month (net)
+                        </div>
+                        <div>
+                            Your take-home salary is <strong>x%</strong> of your gross salary
+                        </div>
+                    </div>
+                    <div class="column is-one-third">
+
+                    </div>
+                    <div class="column is-one-third">
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const {
+            createApp
+        } = Vue;
+
+        createApp({
+            data() {
+                return {
+                    key: "value"
+                }
+            }
+        }).mount("#app");
+    </script>
 </body>
 
 </html>
