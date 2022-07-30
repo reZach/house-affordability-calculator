@@ -50,8 +50,10 @@
                 </h1>
                 <p class="subtitle">
                     Enter in your details below and find out what house you can afford. All calculations are done
-                    client-side.
+                    client-side. If you'd like to try out our calculator with sample data, click the button below.
                 </p>
+                <button class="button is-primary mr-3" v-on:click="randomData">Random data</button>
+                <button class="button is-danger" v-on:click="clearData">Clear all data</button>
             </div>
         </section>
         <section class="hero is-primary is-small">
@@ -76,7 +78,8 @@
                                 </a>
                             </p>
                             <p class="control">
-                                <input class="input" type="number" placeholder="The total amount you make before taxes">
+                                <input class="input" type="number" v-model="grossSalary" min="0"
+                                    placeholder="The total amount you make before taxes">
                             </p>
                         </div>
                     </div>
@@ -89,7 +92,8 @@
                                 </a>
                             </p>
                             <p class="control">
-                                <input class="input" type="number" placeholder="The total amount you make after taxes">
+                                <input class="input" type="number" v-model="netSalary" min="0"
+                                    placeholder="The total amount you make after taxes">
                             </p>
                         </div>
                     </div>
@@ -97,7 +101,8 @@
                         <label class="label">Pay periods per year</label>
                         <div class="field has-addons">
                             <p class="control">
-                                <input class="input" type="number" placeholder="(26 if paid every 2 weeks)">
+                                <input class="input" type="number" v-model="payPeriods" min="0"
+                                    placeholder="(26 if paid every 2 weeks)">
                             </p>
                         </div>
                     </div>
@@ -116,7 +121,8 @@
                                 </a>
                             </p>
                             <p class="control">
-                                <input class="input" type="number" placeholder="Savings you have">
+                                <input class="input" type="number" v-model="savings" min="0"
+                                    placeholder="Savings you have">
                             </p>
                         </div>
                     </div>
@@ -124,7 +130,7 @@
                         <label class="label">Emergency savings (in months)</label>
                         <div class="field has-addons">
                             <p class="control">
-                                <input class="input" type="number"
+                                <input class="input" type="number" v-model="emergencySavingsInMonths" min="0"
                                     placeholder="How many months you desire to have as reserve cash">
                             </p>
                         </div>
@@ -154,7 +160,8 @@
                                 </a>
                             </p>
                             <p class="control">
-                                <input class="input" type="number" placeholder="The list price of the home">
+                                <input class="input" type="number" v-model="homePrice" min="0"
+                                    placeholder="The list price of the home">
                             </p>
                         </div>
                     </div>
@@ -162,7 +169,7 @@
                         <label class="label">Down payment</label>
                         <div class="field has-addons">
                             <p class="control">
-                                <input class="input" type="number"
+                                <input class="input" type="number" v-model="downPayment" min="0"
                                     placeholder="The % of a down payment you are offering">
                             </p>
                             <p class="control">
@@ -181,7 +188,8 @@
                                 </a>
                             </p>
                             <p class="control">
-                                <input class="input" type="number" placeholder="Cost for home insurance for a year">
+                                <input class="input" type="number" v-model="homeInsurance" min="0"
+                                    placeholder="Cost for home insurance for a year">
                             </p>
                         </div>
                     </div>
@@ -195,7 +203,8 @@
                         <label class="label">Property tax</label>
                         <div class="field has-addons">
                             <p class="control">
-                                <input class="input" type="number" placeholder="The property tax % rate">
+                                <input class="input" type="number" v-model="propertyTax" min="0"
+                                    placeholder="The property tax % rate">
                             </p>
                             <p class="control">
                                 <a class="button is-static">
@@ -213,7 +222,7 @@
                                 </a>
                             </p>
                             <p class="control">
-                                <input class="input" type="number"
+                                <input class="input" type="number" v-model="hoa" min="0"
                                     placeholder="The monthly home owners association fee">
                             </p>
                         </div>
@@ -238,7 +247,7 @@
                         <label class="label">Mortgage length (in years)</label>
                         <div class="field has-addons">
                             <p class="control">
-                                <input class="input" type="number"
+                                <input class="input" type="number" v-model="mortgageLengthInYears" min="1"
                                     placeholder="How many months you will have a mortgage">
                             </p>
                         </div>
@@ -247,7 +256,7 @@
                         <label class="label">PMI insurance rate</label>
                         <div class="field has-addons">
                             <p class="control">
-                                <input class="input" type="number"
+                                <input class="input" type="number" v-model="pmiPercentage" min="0"
                                     placeholder="PMI insurance % if you put less than 20% down payment">
                             </p>
                             <p class="control">
@@ -261,7 +270,8 @@
                         <label class="label">Interest rate</label>
                         <div class="field has-addons">
                             <p class="control">
-                                <input class="input" type="number" placeholder="The interest rate of the mortgage">
+                                <input class="input" type="number" v-model="mortgageInterest" min="0"
+                                    placeholder="The interest rate of the mortgage">
                             </p>
                             <p class="control">
                                 <a class="button is-static">
@@ -280,7 +290,7 @@
                         <label class="label">Closing costs</label>
                         <div class="field has-addons">
                             <p class="control">
-                                <input class="input" type="number" value="5"
+                                <input class="input" type="number" v-model="closingCosts" min="0"
                                     placeholder="The cost of closing as a % of the list price">
                             </p>
                             <p class="control">
@@ -294,7 +304,7 @@
                         <label class="label">Furnishing costs</label>
                         <div class="field has-addons">
                             <p class="control">
-                                <input class="input" type="number" value="10"
+                                <input class="input" type="number" v-model="furnishingCosts" min="0"
                                     placeholder="The cost of furnishing the home as a % of the list price">
                             </p>
                             <p class="control">
@@ -329,7 +339,8 @@
                                 </a>
                             </p>
                             <p class="control">
-                                <input class="input" type="number" placeholder="Monthly amount put into savings">
+                                <input class="input" type="number" v-model="savingsInBudget" min="0"
+                                    placeholder="Monthly amount put into savings">
                             </p>
                         </div>
                     </div>
@@ -342,7 +353,8 @@
                                 </a>
                             </p>
                             <p class="control">
-                                <input class="input" type="number" placeholder="Monthly credit card bill">
+                                <input class="input" type="number" v-model="creditCard" min="0"
+                                    placeholder="Monthly credit card bill">
                             </p>
                         </div>
                     </div>
@@ -355,7 +367,8 @@
                                 </a>
                             </p>
                             <p class="control">
-                                <input class="input" type="number" placeholder="Monthly food bill">
+                                <input class="input" type="number" v-model="groceries" min="0"
+                                    placeholder="Monthly food bill">
                             </p>
                         </div>
                     </div>
@@ -374,7 +387,8 @@
                                 </a>
                             </p>
                             <p class="control">
-                                <input class="input" type="number" placeholder="Monthly internet bill">
+                                <input class="input" type="number" v-model="internet" min="0"
+                                    placeholder="Monthly internet bill">
                             </p>
                         </div>
                     </div>
@@ -387,7 +401,8 @@
                                 </a>
                             </p>
                             <p class="control">
-                                <input class="input" type="number" placeholder="Monthly utility bill">
+                                <input class="input" type="number" v-model="utilities" min="0"
+                                    placeholder="Monthly utility bill">
                             </p>
                         </div>
                     </div>
@@ -400,7 +415,8 @@
                                 </a>
                             </p>
                             <p class="control">
-                                <input class="input" type="number" placeholder="Monthly phone bill">
+                                <input class="input" type="number" v-model="phone" min="0"
+                                    placeholder="Monthly phone bill">
                             </p>
                         </div>
                     </div>
@@ -419,7 +435,8 @@
                                 </a>
                             </p>
                             <p class="control">
-                                <input class="input" type="number" placeholder="Monthly house expenses">
+                                <input class="input" type="number" v-model="houseExpenses" min="0"
+                                    placeholder="Monthly house expenses">
                             </p>
                         </div>
                     </div>
@@ -432,10 +449,31 @@
                                 </a>
                             </p>
                             <p class="control">
-                                <input class="input" type="number" placeholder="Monthly donations">
+                                <input class="input" type="number" v-model="donations" min="0"
+                                    placeholder="Monthly donations">
                             </p>
                         </div>
                     </div>
+                    <div class="column is-one-third">
+                        <label class="label">Debts or loans</label>
+                        <div class="field has-addons">
+                            <p class="control">
+                                <a class="button is-static">
+                                    $
+                                </a>
+                            </p>
+                            <p class="control">
+                                <input class="input" type="number" v-model="debtsOrLoans" min="0"
+                                    placeholder="Any other monthly expenses">
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section">
+            <div class="container">
+                <div class="columns">
                     <div class="column is-one-third">
                         <label class="label">ETC</label>
                         <div class="field has-addons">
@@ -445,7 +483,8 @@
                                 </a>
                             </p>
                             <p class="control">
-                                <input class="input" type="number" placeholder="Any other monthly expenses">
+                                <input class="input" type="number" v-model="etc" min="0"
+                                    placeholder="Any other monthly expenses">
                             </p>
                         </div>
                     </div>
@@ -466,31 +505,43 @@
         </section>
         <section class="section">
             <div class="container">
-                <div class="columns">
-                    <div class="column is-one-third">
-                        <h1 class="title is-1">Your income</h1>
-                        <div>
-                            You make <strong>2</strong> per year (gross)
-                        </div>
-                        <div>
-                            You make <strong>2</strong> per year (net)
-                        </div>
-                        <div>
-                            You make <strong>2</strong> per month (gross)
-                        </div>
-                        <div>
-                            You make <strong>2</strong> per month (net)
-                        </div>
-                        <div>
-                            Your take-home salary is <strong>x%</strong> of your gross salary
-                        </div>
+                <div v-if="notFinished">
+                    We can't know for certain what house you can afford until you answer all of the questions. Once
+                    you answer them all, this section will update automatically!
+                </div>
+                <div v-else>
+                    <div v-if="cCanAffordHomeAndSavingsAndFurnishings">
+                        You <strong>can</strong> afford this home, congratulations!
                     </div>
-                    <div class="column is-one-third">
+                    <div v-else-if="cCanAffordHomeAndSavings">
+                        You <em>can</em> afford this home, but you do not have enough money to furnish the entire house.
+                        You would need to save all of your extra cash each month
+                        (<strong>${{ cExtraCashPerMonth }}</strong>) for
+                        {{ cMonthsToSaveAllToAffordHomeAndSavingsAndFurnishings }} months.
+                    </div>
+                    <div v-else-if="cCanAffordHome">
+                        You <em>can</em> afford this home, but you do not have enough money for your emergency savings
+                        fund, nor could you furnish the entire house. You would need to save all of your extra cash each
+                        month (<strong>${{ cExtraCashPerMonth }}</strong>) for
+                        {{ cMonthsToSaveAllToAffordHomeAndSavings }} months to save enough to afford buying this house
+                        and having an emergency fund. You would need to save for
+                        {{ cMonthsToSaveAllToAffordHomeAndSavingsAndFurnishings }} months to have enough to afford the
+                        house, emergency fund, and to fully furnish this house.
+                    </div>
+                    <div v-else>
+                        You <em>cannot</em> afford this home. If you saved all of your extra cash each month
+                        (<strong>${{ cExtraCashPerMonth }}</strong>) for {{ cMonthsToSaveAllToAffordHome }} months, you
+                        would be able to afford this house, but not have any money for your emergency fund or be able to
+                        fully furnish this house.
+                    </div>
 
-                    </div>
-                    <div class="column is-one-third">
-
-                    </div>
+                    
+                    <!-- <ul>
+                        <li>You make <strong>${{ cGrossSalary }}</strong> per year.</li>
+                        <li><strong>{{ cSalaryPercentTakehomeAfterTaxesAndRetirementPlan }}%</strong> of your pay is
+                            left after taxes and/or any retirement funds you contribute to.</li>
+                        <li>[other points to call out/data visualizations?]</li>
+                    </ul> -->
                 </div>
             </div>
         </section>
@@ -501,10 +552,280 @@
             createApp
         } = Vue;
 
-        createApp({
+        function randomNumber(min, max) {
+            return parseFloat((Math.random() * (max - min) + min).toFixed(2));
+        }
+
+        window.app = createApp({
             data() {
                 return {
-                    key: "value"
+                    grossSalary: null,
+                    netSalary: null,
+                    payPeriods: null,
+                    savings: null,
+                    emergencySavingsInMonths: null,
+                    homePrice: null,
+                    downPayment: null,
+                    homeInsurance: null,
+                    propertyTax: null,
+                    hoa: null,
+                    mortgageLengthInYears: null,
+                    pmiPercentage: null,
+                    mortgageInterest: null,
+                    closingCosts: 5,
+                    furnishingCosts: 10,
+                    savingsInBudget: null,
+                    creditCard: null,
+                    groceries: null,
+                    internet: null,
+                    utilities: null,
+                    phone: null,
+                    houseExpenses: null,
+                    donations: null,
+                    debtsOrLoans: null,
+                    etc: null
+                }
+            },
+            methods: {
+                randomData() {
+                    this.grossSalary = randomNumber(2000, 6000);
+                    this.netSalary = (this.grossSalary * 0.61).toFixed(2);
+                    this.payPeriods = 26;
+                    this.savings = randomNumber(5000, 150000);
+                    this.emergencySavingsInMonths = randomNumber(2, 12);
+                    this.homePrice = randomNumber(45000, 700000);
+                    this.downPayment = randomNumber(3, 35);
+                    this.homeInsurance = randomNumber(300, 800);
+                    this.propertyTax = randomNumber(1, 3);
+                    this.hoa = randomNumber(50, 600);
+                    this.mortgageLengthInYears = 30;
+                    this.pmiPercentage = randomNumber(0.5, 1.5);
+                    this.mortgageInterest = randomNumber(4, 7);
+                    this.closingCosts = randomNumber(4, 6);
+                    this.furnishingCosts = randomNumber(8, 12);
+                    this.savingsInBudget = randomNumber(100, 400);
+                    this.creditCard = randomNumber(0, 400);
+                    this.groceries = randomNumber(200, 500);
+                    this.internet = randomNumber(25, 120);
+                    this.utilities = randomNumber(140, 333);
+                    this.phone = randomNumber(10, 80);
+                    this.houseExpenses = randomNumber(25, 200);
+                    this.donations = randomNumber(0, 300);
+                    this.debtsOrLoans = randomNumber(0, 500);
+                    this.etc = 0;
+                },
+                clearData() {
+                    this.grossSalary = null;
+                    this.netSalary = null;
+                    this.payPeriods = null;
+                    this.savings = null;
+                    this.emergencySavingsInMonths = null;
+                    this.homePrice = null;
+                    this.downPayment = null;
+                    this.homeInsurance = null;
+                    this.propertyTax = null;
+                    this.hoa = null;
+                    this.mortgageLengthInYears = null;
+                    this.pmiPercentage = null;
+                    this.mortgageInterest = null;
+                    this.closingCosts = null;
+                    this.furnishingCosts = null;
+                    this.savingsInBudget = null;
+                    this.creditCard = null;
+                    this.groceries = null;
+                    this.internet = null;
+                    this.utilities = null;
+                    this.phone = null;
+                    this.houseExpenses = null;
+                    this.donations = null;
+                    this.debtsOrLoans = null;
+                    this.etc = null;
+                }
+            },
+            computed: {
+                notFinished() {
+
+                    // Can't show results until all fields are filled in
+                    if (this.grossSalary === null ||
+                        this.netSalary === null ||
+                        this.payPeriods === null ||
+                        this.savings === null ||
+                        this.emergencySavingsInMonths === null ||
+                        this.homePrice === null ||
+                        this.downPayment === null ||
+                        this.homeInsurance === null ||
+                        this.propertyTax === null ||
+                        this.hoa === null ||
+                        this.mortgageLengthInYears === null ||
+                        this.pmiPercentage === null ||
+                        this.mortgageInterest === null ||
+                        this.closingCosts === null,
+                        this.furnishingCosts === null,
+                        this.savingsInBudget === null ||
+                        this.creditCard === null ||
+                        this.groceries === null ||
+                        this.internet === null ||
+                        this.utilities === null ||
+                        this.phone === null ||
+                        this.houseExpenses === null ||
+                        this.donations === null ||
+                        this.debtsOrLoans === null ||
+                        this.etc === null) {
+                        return true;
+                    }
+
+                    return false;
+                },
+
+                // "c" means calculated
+
+                // Salary related
+                cGrossSalary() {
+                    return parseFloat((this.grossSalary * this.payPeriods).toFixed(2));
+                },
+                cNetSalary() {
+                    return parseFloat((this.netSalary * this.payPeriods).toFixed(2));
+                },
+                cGrossMonthSalary() {
+                    return parseFloat((this.cGrossSalary / 12).toFixed(2));
+                },
+                cNetMonthSalary() {
+                    return parseFloat((this.cNetSalary / 12).toFixed(2));
+                },
+                cSalaryPercentTakehomeAfterTaxesAndRetirementPlan() {
+                    return parseFloat((this.cNetSalary / this.cGrossSalary * 100).toFixed(2));
+                },
+
+                // Home related
+                cPropertyTaxYearly() {
+                    return parseFloat((this.homePrice * (this.propertyTax / 100)).toFixed(2));
+                },
+                cPropertyTaxMonthly() {
+                    return parseFloat((this.cPropertyTaxYearly / 12).toFixed(2));
+                },
+                cHomeInsuranceMonthly() {
+                    return parseFloat((this.homeInsurance / 12).toFixed(2));
+                },
+                cDownPayment() {
+                    return parseFloat((this.homePrice * (this.downPayment / 100)).toFixed(2));
+                },
+                cClosingCosts() {
+                    return parseFloat((this.homePrice * (this.closingCosts / 100)).toFixed(2));
+                },
+                cFurnishingCosts() {
+                    return parseFloat((this.homePrice * (this.furnishingCosts / 100)).toFixed(2));
+                },
+                cTotalLoanAmount() {
+                    return parseFloat((this.homePrice - this.cDownPayment).toFixed(2));
+                },
+                cHasPMIPayment() {
+                    return this.downPayment < 20;
+                },
+                cPMIYearly() {
+                    return this.cHasPMIPayment ? parseFloat((this.cTotalLoanAmount * (this.pmiPercentage / 100))
+                        .toFixed(2)) : 0;
+                },
+                cPMIMonthly() {
+                    return parseFloat((this.cPMIYearly / 12).toFixed(2));
+                },
+                cMonthlyInterestRate() {
+                    return parseFloat(((this.mortgageInterest / 100) / 12).toFixed(8));
+                },
+                cMortgagePaymentCount() {
+                    return this.mortgageLengthInYears * 12;
+                },
+                cMonthlyMortgage() {
+                    return parseFloat(((this.cTotalLoanAmount * this.cMonthlyInterestRate * Math.pow((1 + this
+                            .cMonthlyInterestRate), this.cMortgagePaymentCount) / (Math.pow(1 + this
+                            .cMonthlyInterestRate, this.cMortgagePaymentCount) - 1)) + this.cPMIMonthly)
+                        .toFixed(2));
+                },
+                cMonthlyMortgageWithTaxes() {
+                    return parseFloat((this.cMonthlyMortgage + this.cPropertyTaxMonthly + this.hoa + this
+                        .cHomeInsuranceMonthly).toFixed(2));
+                },
+
+                // Budget related
+                cRecurringExpenses() {
+                    return parseFloat((this.savingsInBudget + this.creditCard + this.groceries + this.internet +
+                        this
+                        .utilities + this.phone + this.houseExpenses + this.donations + this
+                        .debtsOrLoans + this
+                        .etc).toFixed(2));
+                },
+                cRecurringExpensesWithTaxes() {
+                    return parseFloat((this.cMonthlyMortgageWithTaxes + this.cRecurringExpenses).toFixed(2));
+                },
+
+                // Rules
+                cHouseDebtOfGrossIncome() {
+                    // We want this to be <= 28%
+                    return parseFloat((this.cMonthlyMortgageWithTaxes / this.cGrossMonthSalary).toFixed(2));
+                },
+                cTotalDebtOfGrossIncome() {
+                    // We want this to be <= 36%
+                    // _technically_ this is wrong, as this computed property should look at "debts". however, I am assuming our monthly fixed expenses are a "debt"
+                    return parseFloat((this.cRecurringExpensesWithTaxes / this.cGrossMonthSalary).toFixed(2));
+                },
+
+                // Money totals
+                cEmergencySavingsNeeded() {
+                    return parseFloat((this.cRecurringExpensesWithTaxes * this.emergencySavingsInMonths)
+                        .toFixed(2));
+                },
+                cExtraCashPerMonth() {
+                    return parseFloat((this.cNetMonthSalary - this.cRecurringExpensesWithTaxes).toFixed(2));
+                },
+                cExtraCashPerWeek() {
+                    return parseFloat((this.cExtraCashPerMonth / 4).toFixed(2));
+                },
+
+                // House totals
+                cPaymentRequiredToBuyHouse() {
+                    return parseFloat((this.cDownPayment + this.cClosingCosts).toFixed(2));
+                },
+                cPaymentRequiredToBuyHouseAndHaveSavings() {
+                    return parseFloat((this.cPaymentRequiredToBuyHouse + this.cEmergencySavingsNeeded).toFixed(
+                        2));
+                },
+                cPaymentRequiredToBuyHouseAndHaveSavingsAndFurnishings() {
+                    return parseFloat((this.cPaymentRequiredToBuyHouseAndHaveSavings + this.cFurnishingCosts)
+                        .toFixed(2));
+                },
+
+                // Flags
+                cCanAffordHome() {
+                    return this.savings - this.cPaymentRequiredToBuyHouse > 0;
+                },
+                cCanAffordHomeAndSavings() {
+                    return this.savings - this.cPaymentRequiredToBuyHouseAndHaveSavings > 0
+                },
+                cCanAffordHomeAndSavingsAndFurnishings() {
+                    return this.savings - this.cPaymentRequiredToBuyHouseAndHaveSavingsAndFurnishings > 0;
+                },
+
+                // Future
+                cNeededToAffordHome() {
+                    return parseFloat((this.cPaymentRequiredToBuyHouse - this.savings).toFixed(2));
+                },
+                cNeededToAffordHomeAndSavings() {
+                    return parseFloat((this.cPaymentRequiredToBuyHouseAndHaveSavings - this.savings).toFixed(
+                        2));
+                },
+                cNeededToAffordHomeAndSavingsAndFurnishings() {
+                    return parseFloat((this.cPaymentRequiredToBuyHouseAndHaveSavingsAndFurnishings - this
+                        .savings).toFixed(2));
+                },
+                cMonthsToSaveAllToAffordHome() {
+                    return parseFloat((this.cNeededToAffordHome / this.cExtraCashPerMonth).toFixed(2));
+                },
+                cMonthsToSaveAllToAffordHomeAndSavings() {
+                    return parseFloat((this.cNeededToAffordHomeAndSavings / this.cExtraCashPerMonth).toFixed(
+                        2));
+                },
+                cMonthsToSaveAllToAffordHomeAndSavingsAndFurnishings() {
+                    return parseFloat((this.cNeededToAffordHomeAndSavingsAndFurnishings / this
+                        .cExtraCashPerMonth).toFixed(2));
                 }
             }
         }).mount("#app");
